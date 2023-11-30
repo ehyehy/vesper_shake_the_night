@@ -14,13 +14,41 @@ body {
   background: url('background.png') center center no-repeat; /* Imposta l'immagine di sfondo e il suo posizionamento */
   background-size: cover; /* Copri completamente l'area senza deformare l'immagine */
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh; /* Altezza del viewport */
+  width: 100%; /* Larghezza del viewport */
+  margin-top: 0px; /* Ridotto il margine dalla parte superiore */
+  margin-bottom: 0; /* Nessun margine nella parte inferiore */
+  overflow: hidden; /* Impedisce lo scrolling oltre il container */
+  background: url('background.png') center center no-repeat;
+  background-size: cover;
+}
 
-    .card {
-      width: 192px;
-      height: 252px;
-      perspective: 1000px;
-	
-    }
+
+
+
+.header {
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  margin-bottom: 10px;
+  margin-top: 150px; /* Ridotto il margine dalla parte superiore */
+}
+
+.card {
+  width: 192px;
+  height: 252px;
+  perspective: 1000px;
+  margin-top: 10px;
+
+}
+
+
 
     .card-inner {
       width: 100%;
@@ -39,6 +67,7 @@ body {
       height: 100%;
       position: absolute;
       backface-visibility: hidden;
+	  border-radius: 10px;
 	    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
     }
 
@@ -53,15 +82,49 @@ body {
     .card-back {
       transform: rotateY(180deg);
     }
+	
+	#centeredButton {
+	        
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+		
+		#centeredButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none; /* Colore del bordo */
+  background-color: #55090b; /* Colore di sfondo */
+  color: #ffffff; /* Colore del testo */
+  border-radius: 50px; /* Bordi arrotondati */
+  margin-top: 40px; /* Distanza dalla card */
+  display: block; /* Per centrare il pulsante */
+  margin-left: auto; /* Per centrare il pulsante */
+  margin-right: auto; /* Per centrare il pulsante */
+}
+
+
+	
   </style>
 </head>
 <body>
-  <div class="card" onclick="flipCard()">
-    <div class="card-inner">
-      <div class="card-face card-front" style="background-image: url('card1.png');"></div>
-      <div class="card-face card-back" id="cardBack"></div>
+
+  <div class="container">
+    <div class="header">
+      <h2>GIRA LA CARTA</h2>
+    </div>
+
+    <div class="card" onclick="flipCard()">
+      <div class="card-inner">
+        <div class="card-face card-front" style="background-image: url('card1.png');"></div>
+        <div class="card-face card-back" id="cardBack"></div>
+      </div>
+      <button id="centeredButton" onclick="buttonClick()">CONDIVIDI</button>
     </div>
   </div>
+
+</body>
 
   <script>
     function flipCard() {
@@ -76,13 +139,13 @@ body {
 
       // Aggiungi qui le condizioni per ogni giorno e mese di dicembre
       if (currentMonth === 11) {
-        if (currentDay === 28) {
+        if (currentDay === 30) {
           document.getElementById('cardBack').style.backgroundImage = "url('1.png')";
         } else if (currentDay === 2) {
           document.getElementById('cardBack').style.backgroundImage = "url('2.png')";
         } else if (currentDay === 3) {
           document.getElementById('cardBack').style.backgroundImage = "url('3.png')";
-        } else if (currentDay === 4) {
+        } else if (currentDay === 29) {
           document.getElementById('cardBack').style.backgroundImage = "url('4.png')";
         } else if (currentDay === 5) {
           document.getElementById('cardBack').style.backgroundImage = "url('5.png')";
@@ -133,6 +196,28 @@ body {
 
     // Aggiorna il retro della carta quando la pagina si carica
     updateCardBack();
+	
+function buttonClick() {
+            // Verifica se il browser supporta l'API di condivisione
+            if (navigator.share) {
+                // Ottieni l'URL corrente
+                var currentUrl = window.location.href;
+
+                // Utilizza l'API di condivisione per condividere l'URL
+                navigator.share({
+                    title: document.title,
+                    url: currentUrl
+                }).then(() => {
+                    console.log('URL condiviso con successo!');
+                }).catch((error) => {
+                    console.error('Errore durante la condivisione:', error);
+                });
+            } else {
+                // Fallback nel caso in cui l'API di condivisione non sia supportata
+                alert("Spiacenti, la condivisione non è supportata dal tuo browser.");
+            }
+        }
+		
   </script>
 </body>
 </html>
