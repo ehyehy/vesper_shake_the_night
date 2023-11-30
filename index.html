@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta property="og:image" content="anteprima.png" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta property="og:image" content="anteprima.png">
+
   <title>Vesper Winter's Days</title>
   <style>
 body {
@@ -202,31 +203,26 @@ body {
     updateCardBack();
 	
 function buttonClick() {
-    // Verifica se il browser supporta l'API di condivisione
-    if (navigator.share) {
-        // Ottieni l'URL corrente
-        var currentUrl = window.location.href;
+            // Verifica se il browser supporta l'API di condivisione
+            if (navigator.share) {
+                // Ottieni l'URL corrente
+                var currentUrl = window.location.href;
 
-        // Aggiungi la tua immagine di anteprima
-        var previewImage = 'anteprima.png';
-
-        // Utilizza l'API di condivisione per condividere l'URL con l'immagine di anteprima
-        navigator.share({
-            title: document.title,
-            text: 'Scopri la prmozione del giorno!',
-            url: currentUrl,
-            files: [previewImage]
-        }).then(() => {
-            console.log('URL condiviso con successo!');
-        }).catch((error) => {
-            console.error('Errore durante la condivisione:', error);
-        });
-    } else {
-        // Fallback nel caso in cui l'API di condivisione non sia supportata
-        alert("Spiacenti, la condivisione non è supportata dal tuo browser.");
-    }
-}
-
+                // Utilizza l'API di condivisione per condividere l'URL
+                navigator.share({
+                    title: document.title,
+                    url: currentUrl
+                }).then(() => {
+                    console.log('URL condiviso con successo!');
+                }).catch((error) => {
+                    console.error('Errore durante la condivisione:', error);
+                });
+            } else {
+                // Fallback nel caso in cui l'API di condivisione non sia supportata
+                alert("Spiacenti, la condivisione non è supportata dal tuo browser.");
+            }
+        }
+		
   </script>
 </body>
 </html>
