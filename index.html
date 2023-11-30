@@ -203,25 +203,29 @@ body {
     updateCardBack();
 	
 function buttonClick() {
-            // Verifica se il browser supporta l'API di condivisione
-            if (navigator.share) {
-                // Ottieni l'URL corrente
-                var currentUrl = window.location.href;
+  // Verifica se il browser supporta l'API di condivisione
+  if (navigator.share) {
+    // Ottieni l'URL corrente
+    var currentUrl = window.location.href;
 
-                // Utilizza l'API di condivisione per condividere l'URL
-                navigator.share({
-                    title: document.title,
-                    url: currentUrl
-                }).then(() => {
-                    console.log('URL condiviso con successo!');
-                }).catch((error) => {
-                    console.error('Errore durante la condivisione:', error);
-                });
-            } else {
-                // Fallback nel caso in cui l'API di condivisione non sia supportata
-                alert("Spiacenti, la condivisione non è supportata dal tuo browser.");
-            }
-        }
+    // Aggiungi il debug per visualizzare le informazioni sull'anteprima
+    var debugUrl = "https://wa.me/?debug=true&text=" + encodeURIComponent(currentUrl);
+
+    // Utilizza l'API di condivisione per condividere l'URL con il debug
+    navigator.share({
+      title: document.title,
+      url: debugUrl
+    }).then(() => {
+      console.log('URL condiviso con successo con debug!');
+    }).catch((error) => {
+      console.error('Errore durante la condivisione:', error);
+    });
+  } else {
+    // Fallback nel caso in cui l'API di condivisione non sia supportata
+    alert("Spiacenti, la condivisione non è supportata dal tuo browser.");
+  }
+}
+
 		
   </script>
 </body>
